@@ -84,33 +84,29 @@ const App: React.FC = () => {
             {/* Logo/Brand */}
             <button 
               onClick={scrollToTop}
-              className="flex items-center gap-3 hover:opacity-80 transition-opacity duration-300"
+              className="flex items-center hover:opacity-80 transition-opacity duration-300"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300">
-                <span className="text-white font-black text-lg">🏍️</span>
-              </div>
               <div className="flex flex-col">
-                <span className="text-red-500 font-black text-xl leading-tight">Road Glide</span>
-                <span className="text-gray-400 text-xs font-medium leading-tight">CUSTOM</span>
+                <span className="text-red-500 font-black text-2xl leading-tight">Road Glide</span>
+                <span className="text-gray-400 text-xs font-medium leading-tight tracking-wider">CUSTOM</span>
               </div>
             </button>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               {[
-                { id: 'gallery', label: 'Gallery', icon: '📸' },
-                { id: 'features', label: 'Features', icon: '⚡' },
-                { id: 'value', label: 'Value', icon: '$' },
-                { id: 'important-note', label: 'Details', icon: '⚠️' },
-                { id: 'contact', label: 'Contact', icon: '📞' }
+                { id: 'gallery', label: 'Gallery' },
+                { id: 'features', label: 'Features' },
+                { id: 'value', label: 'Value' },
+                { id: 'important-note', label: 'Details' },
+                { id: 'contact', label: 'Contact' }
               ].map(item => (
                 <button 
                   key={item.id}
                   onClick={() => scrollToSection(item.id)} 
-                  className="group flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white transition-all duration-300 hover:bg-red-500/10 rounded-xl border border-transparent hover:border-red-500/30"
+                  className="px-4 py-2 text-gray-300 hover:text-white font-medium transition-all duration-300 hover:bg-red-500/10 rounded-xl border border-transparent hover:border-red-500/30"
                 >
-                  <span className="text-sm group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
-                  <span className="font-medium">{item.label}</span>
+                  {item.label}
                 </button>
               ))}
             </div>
@@ -122,12 +118,12 @@ const App: React.FC = () => {
                 className="bg-gray-800/80 backdrop-blur-sm text-gray-300 border border-red-500/30 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500"
                 defaultValue=""
               >
-                <option value="" disabled>Navigate ⚡</option>
-                <option value="gallery">📸 Gallery</option>
-                <option value="features">⚡ Features</option>
-                <option value="value">$ Value</option>
-                <option value="important-note">⚠️ Details</option>
-                <option value="contact">📞 Contact</option>
+                <option value="" disabled>Navigate</option>
+                <option value="gallery">Gallery</option>
+                <option value="features">Features</option>
+                <option value="value">Value</option>
+                <option value="important-note">Details</option>
+                <option value="contact">Contact</option>
               </select>
             </div>
           </div>

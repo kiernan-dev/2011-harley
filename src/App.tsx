@@ -12,13 +12,13 @@ const App: React.FC = () => {
     { src: '/images/glide/IMG_4059.webp', alt: '2011 Harley-Davidson Road Glide Custom - Side View' },
     { src: '/images/glide/IMG_4060.webp', alt: '2011 Harley-Davidson Road Glide Custom - Detail Shot' },
     { src: '/images/glide/IMG_4061.webp', alt: '2011 Harley-Davidson Road Glide Custom - Engine View' },
-    { src: '/images/glide/IMG_4062.webp', alt: '2011 Harley-Davidson Road Glide Custom - Chrome Details' },
     { src: '/images/glide/IMG_4063.webp', alt: '2011 Harley-Davidson Road Glide Custom - Custom Details' },
     { src: '/images/glide/IMG_4064.webp', alt: '2011 Harley-Davidson Road Glide Custom - Full Profile' },
     { src: '/images/glide/IMG_4065.webp', alt: '2011 Harley-Davidson Road Glide Custom - Additional View' },
     { src: '/images/glide/IMG_4066.webp', alt: '2011 Harley-Davidson Road Glide Custom - Another Angle' },
-    { src: '/images/glide/IMG_4067.webp', alt: '2011 Harley-Davidson Road Glide Custom - Rear View' },
     { src: '/images/glide/IMG_4069.webp', alt: '2011 Harley-Davidson Road Glide Custom - Final Shot' },
+    { src: '/images/glide/IMG_4067.webp', alt: '2011 Harley-Davidson Road Glide Custom - Rear View' },
+    { src: '/images/glide/IMG_4062.webp', alt: '2011 Harley-Davidson Road Glide Custom - Chrome Details' }
   ];
 
   const handleContactSubmit = () => {
@@ -62,9 +62,10 @@ const App: React.FC = () => {
     const handleScroll = () => {
       const heroSection = document.querySelector('section');
       if (heroSection) {
-        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-        const scrollPosition = window.scrollY + window.innerHeight;
-        setIsHeroVisible(scrollPosition <= heroBottom + 100);
+        const heroHeight = heroSection.offsetHeight;
+        const scrollPosition = window.scrollY;
+        // Change when 90% of hero section is scrolled past
+        setIsHeroVisible(scrollPosition < heroHeight * 0.9);
       }
     };
 
@@ -156,7 +157,7 @@ const App: React.FC = () => {
             
             <div className="space-y-4">
               <p className="text-xl text-gray-300 leading-relaxed">
-                Only <span className="text-red-400 font-bold">14,500 miles</span> with over 
+                <span className="text-red-400 font-bold">Less than 14,500 miles</span> with over 
                 <span className="text-red-400 font-bold"> $15k in premium upgrades</span>
               </p>
               
@@ -193,21 +194,13 @@ const App: React.FC = () => {
 
           {/* Image Side */}
           <div className="relative">
-            <div className="relative aspect-square overflow-hidden shadow-2xl">
-              {/* Custom Shape Mask */}
-              <div 
-                className="w-full h-full bg-gray-800"
-                style={{
-                  clipPath: 'polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%)'
-                }}
-              >
+            <div className="relative aspect-square">
+              {/* Circle Mask */}
+              <div className="w-full h-full rounded-full overflow-hidden shadow-2xl">
                 <img
                   src={images[0]?.src}
                   alt="2011 Harley-Davidson Road Glide Custom"
                   className="w-full h-full object-cover"
-                  style={{
-                    clipPath: 'polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%)'
-                  }}
                 />
               </div>
               
@@ -217,17 +210,12 @@ const App: React.FC = () => {
               <div className="absolute top-1/3 left-4 w-1 h-8 bg-gradient-to-b from-red-500 to-transparent"></div>
               
               {/* Overlay gradient */}
-              <div 
-                className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-red-700/20"
-                style={{
-                  clipPath: 'polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%)'
-                }}
-              ></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-red-700/20 rounded-full pointer-events-none"></div>
             </div>
             
             {/* Enhanced glow effects */}
-            <div className="absolute -inset-8 bg-gradient-to-tr from-red-500/15 via-red-600/5 to-transparent blur-2xl"></div>
-            <div className="absolute -inset-4 bg-gradient-to-br from-red-400/10 to-red-700/10 blur-xl"></div>
+            <div className="absolute -inset-8 bg-gradient-to-tr from-red-500/15 via-red-600/5 to-transparent blur-2xl rounded-full"></div>
+            <div className="absolute -inset-4 bg-gradient-to-br from-red-400/10 to-red-700/10 blur-xl rounded-full"></div>
           </div>
         </div>
       </section>
@@ -241,7 +229,7 @@ const App: React.FC = () => {
               This Is What <span className="text-red-500">Freedom</span> Looks Like
             </h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              A real head-turner with <span className="text-red-400">14,500 miles</span> and over 
+              A real head-turner with <span className="text-red-400">less than 14,500 miles</span> and over 
               <span className="text-red-400"> $15k invested</span> in professional custom work
             </p>
           </div>
@@ -515,7 +503,7 @@ const App: React.FC = () => {
                 <ul className="space-y-3 text-gray-300">
                   <li>• Pay only $17k OBO</li>
                   <li>• Already customized ($15k+ invested)</li>
-                  <li>• Barely broken in (14,500 miles)</li>
+                  <li>• Barely broken in (less than 14,500 miles)</li>
                   <li>• Professional maintenance history</li>
                   <li>• Total value: <span className="text-green-400 font-bold">$45k+</span></li>
                 </ul>

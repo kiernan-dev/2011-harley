@@ -21,12 +21,27 @@ const App: React.FC = () => {
     { src: '/images/glide/IMG_4062.webp', alt: '2011 Harley-Davidson Road Glide Custom - Chrome Details' }
   ];
 
-  const handleContactSubmit = () => {
-    // Netlify will handle the form submission automatically
-    // Just close the modal after a brief delay to show success
-    setTimeout(() => {
-      setShowContactModal(false);
-    }, 1000);
+  const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString()
+    })
+    .then(() => {
+      // Success - close modal after brief delay
+      setTimeout(() => {
+        setShowContactModal(false);
+      }, 1000);
+    })
+    .catch((error) => {
+      console.error('Form submission error:', error);
+      alert('There was an error submitting the form. Please try again.');
+    });
   };
 
   const openImageModal = (index: number) => {
@@ -815,6 +830,15 @@ const App: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Hidden form for Netlify detection */}
+      <form name="harley-inquiry" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+        <input type="hidden" name="form-name" value="harley-inquiry" />
+        <input type="hidden" name="bot-field" />
+        <input name="name" />
+        <input name="email" />
+        <textarea name="message"></textarea>
+      </form>
 
       {/* Floating Scroll Button */}
       <button

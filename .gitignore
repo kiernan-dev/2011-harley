@@ -117,3 +117,15 @@ Thumbs.db
 *.temp
 .tmp/
 .temp/
+
+# AI CLI Tools
+.claude/
+.cursor/
+.aider/
+.copilot/
+.codewhisperer/
+.gemini/
+.tabby/
+.continue/
+.windsurf/
+.bolt/

@@ -1,27 +1,10 @@
 import React, { useState } from 'react';
 
-interface ChatMessage {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-}
 
 const App: React.FC = () => {
   const [showContactModal, setShowContactModal] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showChatbot, setShowChatbot] = useState(false);
-  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
-    {
-      id: '1',
-      role: 'assistant',
-      content: "Hi! I'm your AI sales agent for this beautiful 2011 Harley-Davidson Road Glide Custom. I can answer questions, discuss pricing (we're flexible between $15k-$17k), and help schedule a viewing. What would you like to know?",
-      timestamp: new Date()
-    }
-  ]);
-  const [chatInput, setChatInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
 
   const images = [
     { src: '/images/IMG_2542.jpg', alt: '2011 Harley-Davidson Road Glide Custom - Front View' },
@@ -32,7 +15,7 @@ const App: React.FC = () => {
     { src: '/images/IMG_2551.jpg', alt: '2011 Harley-Davidson Road Glide Custom - Full Profile' },
   ];
 
-  const handleContactSubmit = (event: React.FormEvent) => {
+  const handleContactSubmit = () => {
     // Netlify will handle the form submission automatically
     // Just close the modal after a brief delay to show success
     setTimeout(() => {

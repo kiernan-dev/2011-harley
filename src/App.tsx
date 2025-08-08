@@ -7,12 +7,14 @@ const App: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const images = [
-    { src: '/images/IMG_2542.jpg', alt: '2011 Harley-Davidson Road Glide Custom - Front View' },
-    { src: '/images/IMG_2546.jpg', alt: '2011 Harley-Davidson Road Glide Custom - Side View' },
-    { src: '/images/IMG_2548.jpg', alt: '2011 Harley-Davidson Road Glide Custom - Detail Shot' },
-    { src: '/images/IMG_2549.jpg', alt: '2011 Harley-Davidson Road Glide Custom - Engine View' },
-    { src: '/images/IMG_2550.jpg', alt: '2011 Harley-Davidson Road Glide Custom - Custom Details' },
-    { src: '/images/IMG_2551.jpg', alt: '2011 Harley-Davidson Road Glide Custom - Full Profile' },
+    { src: '/images/glide/IMG_4058.webp', alt: '2011 Harley-Davidson Road Glide Custom - Front View' },
+    { src: '/images/glide/IMG_4059.webp', alt: '2011 Harley-Davidson Road Glide Custom - Side View' },
+    { src: '/images/glide/IMG_4060.webp', alt: '2011 Harley-Davidson Road Glide Custom - Detail Shot' },
+    { src: '/images/glide/IMG_4061.webp', alt: '2011 Harley-Davidson Road Glide Custom - Engine View' },
+    { src: '/images/glide/IMG_4063.webp', alt: '2011 Harley-Davidson Road Glide Custom - Custom Details' },
+    { src: '/images/glide/IMG_4064.webp', alt: '2011 Harley-Davidson Road Glide Custom - Full Profile' },
+    { src: '/images/glide/IMG_4065.webp', alt: '2011 Harley-Davidson Road Glide Custom - Additional View' },
+    { src: '/images/glide/IMG_4066.webp', alt: '2011 Harley-Davidson Road Glide Custom - Another Angle' },
   ];
 
   const handleContactSubmit = () => {
@@ -40,10 +42,43 @@ const App: React.FC = () => {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  const scrollToSection = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 font-sans antialiased">
+      {/* Mobile-friendly Navigation Bar */}
+      <nav className="fixed top-0 left-0 right-0 bg-gray-900 bg-opacity-95 backdrop-blur-sm border-b border-gray-800 z-40">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            <div className="text-red-500 font-bold text-lg">Road Glide Custom</div>
+            <div className="hidden md:flex space-x-6">
+              <button onClick={() => scrollToSection('gallery')} className="text-gray-300 hover:text-red-400 transition-colors">Gallery</button>
+              <button onClick={() => scrollToSection('features')} className="text-gray-300 hover:text-red-400 transition-colors">Features</button>
+              <button onClick={() => scrollToSection('value')} className="text-gray-300 hover:text-red-400 transition-colors">Value</button>
+              <button onClick={() => scrollToSection('important-note')} className="text-gray-300 hover:text-red-400 transition-colors">Details</button>
+              <button onClick={() => scrollToSection('contact')} className="text-gray-300 hover:text-red-400 transition-colors">Contact</button>
+            </div>
+            <div className="md:hidden">
+              <select 
+                onChange={(e) => e.target.value && scrollToSection(e.target.value)}
+                className="bg-gray-800 text-gray-300 border border-gray-600 rounded px-3 py-1 text-sm"
+                defaultValue=""
+              >
+                <option value="" disabled>Navigate</option>
+                <option value="gallery">Gallery</option>
+                <option value="features">Features</option>
+                <option value="value">Value</option>
+                <option value="important-note">Details</option>
+                <option value="contact">Contact</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </nav>
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-gray-900 to-red-950 shadow-xl">
+      <section className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pt-48 lg:pb-32 bg-gradient-to-br from-gray-900 to-red-950 shadow-xl">
         <div className="absolute inset-0 z-0 opacity-10" style={{ backgroundImage: "url('https://tailwindcss.com/_next/static/media/bg-dark@75.90cd243a.png')" }}></div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-red-500 leading-tight tracking-tight mb-4 drop-shadow-lg">
@@ -87,7 +122,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Image Gallery Placeholder Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gray-950 border-t border-gray-800">
+      <section id="gallery" className="py-16 sm:py-20 lg:py-24 bg-gray-950 border-t border-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-red-500 mb-12">
             This Is What Freedom Looks Like
@@ -107,7 +142,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Key Features Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gray-900 border-t border-gray-800">
+      <section id="features" className="py-16 sm:py-20 lg:py-24 bg-gray-900 border-t border-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-red-500 mb-12">
             Key Features & Upgrades
@@ -203,6 +238,21 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Value Proposition Section */}
+      <section id="value" className="py-16 sm:py-20 lg:py-24 bg-gray-950 border-t border-gray-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center bg-gray-800 rounded-xl p-8 shadow-inner border border-gray-700">
+          <h2 className="text-3xl sm:text-4xl font-bold text-red-500 mb-6">
+            Think About This...
+          </h2>
+          <p className="text-lg sm:text-xl text-gray-300 leading-relaxed mb-6">
+            Why spend <span className="text-red-400 font-bold">$20k on a new stock bike</span> that will lose 20% of its value the moment you drive it off the lot, when you can grab this <span className="text-red-400 font-bold">chromed-out magnificent beast</span> for the same price and barely broken in?
+          </p>
+          <p className="text-xl font-bold text-amber-300">
+            This is a rare opportunity to get premium custom work at a fraction of the cost!
+          </p>
+        </div>
+      </section>
+
       {/* Important Note Section */}
       <section id="important-note" className="py-16 sm:py-20 lg:py-24 bg-gray-900 border-t border-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center bg-gray-800 rounded-xl p-8 shadow-inner border border-gray-700">
@@ -219,7 +269,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Contact & Legal Info Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gray-950 border-t border-gray-800">
+      <section id="contact" className="py-16 sm:py-20 lg:py-24 bg-gray-950 border-t border-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-red-500 mb-8">
             Ready to Make This Harley Yours?

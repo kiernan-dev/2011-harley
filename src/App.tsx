@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 const App: React.FC = () => {
   const [showContactModal, setShowContactModal] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
 
   const images = [
     { src: '/images/glide/IMG_4058.webp', alt: '2011 Harley-Davidson Road Glide Custom - Front View' },
     { src: '/images/glide/IMG_4059.webp', alt: '2011 Harley-Davidson Road Glide Custom - Side View' },
     { src: '/images/glide/IMG_4060.webp', alt: '2011 Harley-Davidson Road Glide Custom - Detail Shot' },
     { src: '/images/glide/IMG_4061.webp', alt: '2011 Harley-Davidson Road Glide Custom - Engine View' },
+    { src: '/images/glide/IMG_4062.webp', alt: '2011 Harley-Davidson Road Glide Custom - Chrome Details' },
     { src: '/images/glide/IMG_4063.webp', alt: '2011 Harley-Davidson Road Glide Custom - Custom Details' },
     { src: '/images/glide/IMG_4064.webp', alt: '2011 Harley-Davidson Road Glide Custom - Full Profile' },
     { src: '/images/glide/IMG_4065.webp', alt: '2011 Harley-Davidson Road Glide Custom - Additional View' },
     { src: '/images/glide/IMG_4066.webp', alt: '2011 Harley-Davidson Road Glide Custom - Another Angle' },
+    { src: '/images/glide/IMG_4067.webp', alt: '2011 Harley-Davidson Road Glide Custom - Rear View' },
+    { src: '/images/glide/IMG_4069.webp', alt: '2011 Harley-Davidson Road Glide Custom - Final Shot' },
   ];
 
   const handleContactSubmit = () => {
@@ -46,36 +50,90 @@ const App: React.FC = () => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToGallery = () => {
+    scrollToSection('gallery');
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroSection = document.querySelector('section');
+      if (heroSection) {
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        const scrollPosition = window.scrollY + window.innerHeight;
+        setIsHeroVisible(scrollPosition <= heroBottom + 100);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial state
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 font-sans antialiased">
       {/* Mobile-friendly Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 bg-gray-900 bg-opacity-95 backdrop-blur-sm border-b border-gray-800 z-40">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <div className="text-red-500 font-bold text-lg">Road Glide Custom</div>
-            <div className="hidden md:flex space-x-6">
-              <button onClick={() => scrollToSection('gallery')} className="text-gray-300 hover:text-red-400 transition-colors">Gallery</button>
-              <button onClick={() => scrollToSection('features')} className="text-gray-300 hover:text-red-400 transition-colors">Features</button>
-              <button onClick={() => scrollToSection('value')} className="text-gray-300 hover:text-red-400 transition-colors">Value</button>
-              <button onClick={() => scrollToSection('important-note')} className="text-gray-300 hover:text-red-400 transition-colors">Details</button>
-              <button onClick={() => scrollToSection('contact')} className="text-gray-300 hover:text-red-400 transition-colors">Contact</button>
+      <nav className="fixed top-0 left-0 right-0 bg-gray-950/95 backdrop-blur-md border-b border-red-500/20 z-40 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-18">
+            {/* Logo/Brand */}
+            <button 
+              onClick={scrollToTop}
+              className="flex items-center gap-3 hover:opacity-80 transition-opacity duration-300"
+            >
+              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300">
+                <span className="text-white font-black text-lg">🏍️</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-red-500 font-black text-xl leading-tight">Road Glide</span>
+                <span className="text-gray-400 text-xs font-medium leading-tight">CUSTOM</span>
+              </div>
+            </button>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              {[
+                { id: 'gallery', label: 'Gallery', icon: '📸' },
+                { id: 'features', label: 'Features', icon: '⚡' },
+                { id: 'value', label: 'Value', icon: '$' },
+                { id: 'important-note', label: 'Details', icon: '⚠️' },
+                { id: 'contact', label: 'Contact', icon: '📞' }
+              ].map(item => (
+                <button 
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)} 
+                  className="group flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white transition-all duration-300 hover:bg-red-500/10 rounded-xl border border-transparent hover:border-red-500/30"
+                >
+                  <span className="text-sm group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
+                  <span className="font-medium">{item.label}</span>
+                </button>
+              ))}
             </div>
+
+            {/* Mobile Navigation */}
             <div className="md:hidden">
               <select 
                 onChange={(e) => e.target.value && scrollToSection(e.target.value)}
-                className="bg-gray-800 text-gray-300 border border-gray-600 rounded px-3 py-1 text-sm"
+                className="bg-gray-800/80 backdrop-blur-sm text-gray-300 border border-red-500/30 rounded-xl px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500"
                 defaultValue=""
               >
-                <option value="" disabled>Navigate</option>
-                <option value="gallery">Gallery</option>
-                <option value="features">Features</option>
-                <option value="value">Value</option>
-                <option value="important-note">Details</option>
-                <option value="contact">Contact</option>
+                <option value="" disabled>Navigate ⚡</option>
+                <option value="gallery">📸 Gallery</option>
+                <option value="features">⚡ Features</option>
+                <option value="value">$ Value</option>
+                <option value="important-note">⚠️ Details</option>
+                <option value="contact">📞 Contact</option>
               </select>
             </div>
           </div>
         </div>
+
+        {/* Subtle bottom accent line */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent"></div>
       </nav>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center bg-gradient-to-br from-gray-950 via-gray-900 to-red-950">
@@ -135,14 +193,41 @@ const App: React.FC = () => {
 
           {/* Image Side */}
           <div className="relative">
-            <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
-              <img
-                src={images[0]?.src}
-                alt="2011 Harley-Davidson Road Glide Custom"
-                className="w-full h-full object-cover"
-              />
+            <div className="relative aspect-square overflow-hidden shadow-2xl">
+              {/* Custom Shape Mask */}
+              <div 
+                className="w-full h-full bg-gray-800"
+                style={{
+                  clipPath: 'polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%)'
+                }}
+              >
+                <img
+                  src={images[0]?.src}
+                  alt="2011 Harley-Davidson Road Glide Custom"
+                  className="w-full h-full object-cover"
+                  style={{
+                    clipPath: 'polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%)'
+                  }}
+                />
+              </div>
+              
+              {/* Decorative elements */}
+              <div className="absolute top-4 right-4 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+              <div className="absolute bottom-8 left-8 w-2 h-2 bg-red-400 rounded-full"></div>
+              <div className="absolute top-1/3 left-4 w-1 h-8 bg-gradient-to-b from-red-500 to-transparent"></div>
+              
+              {/* Overlay gradient */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-red-700/20"
+                style={{
+                  clipPath: 'polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%)'
+                }}
+              ></div>
             </div>
-            <div className="absolute -inset-4 bg-gradient-to-tr from-red-500/20 to-transparent rounded-3xl blur-xl"></div>
+            
+            {/* Enhanced glow effects */}
+            <div className="absolute -inset-8 bg-gradient-to-tr from-red-500/15 via-red-600/5 to-transparent blur-2xl"></div>
+            <div className="absolute -inset-4 bg-gradient-to-br from-red-400/10 to-red-700/10 blur-xl"></div>
           </div>
         </div>
       </section>
@@ -746,6 +831,28 @@ const App: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Floating Scroll Button */}
+      <button
+        onClick={isHeroVisible ? scrollToGallery : scrollToTop}
+        className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 group bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-red-500/25 focus:outline-none focus:ring-4 focus:ring-red-500/50"
+        aria-label={isHeroVisible ? "Scroll to gallery" : "Back to top"}
+      >
+        <svg 
+          className={`w-6 h-6 transform transition-all duration-300 ${isHeroVisible ? 'rotate-180 group-hover:translate-y-1' : 'group-hover:-translate-y-1'}`}
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={3} 
+            d="M5 15l7-7 7 7" 
+          />
+        </svg>
+        <div className="absolute -inset-2 bg-gradient-to-r from-red-500 to-red-700 rounded-full blur opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+      </button>
     </div>
   );
 };

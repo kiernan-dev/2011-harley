@@ -189,7 +189,7 @@ const App: React.FC = () => {
                 <div className="relative">
                   <div className="bg-gradient-to-r from-red-600 to-red-700 p-6 rounded-2xl shadow-2xl border border-red-500/20">
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl lg:text-5xl font-black text-white">$17,000</span>
+                      <span className="text-4xl lg:text-5xl font-black text-white">$18,000</span>
                       <span className="text-xl text-red-200">OBO</span>
                     </div>
                     <p className="text-red-100 text-sm mt-1">Comparable builds typically $25k+</p>

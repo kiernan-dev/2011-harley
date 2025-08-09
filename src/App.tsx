@@ -340,7 +340,7 @@ const App: React.FC = () => {
                 <p className="text-red-400 font-semibold mb-3">Premium Chrome Package</p>
                 <ul className="space-y-2 text-gray-300">
                   <li>• 14" ape hangers</li>
-                  <li>• Braided lines throughout</li>
+                  <li>• Braided lines</li>
                   <li>• Custom mirrors & pegs</li>
                 </ul>
               </div>
@@ -353,9 +353,9 @@ const App: React.FC = () => {
                 <h3 className="text-2xl font-bold text-white mb-4">Premium Audio</h3>
                 <p className="text-red-400 font-semibold mb-3">Alpine Sound System</p>
                 <ul className="space-y-2 text-gray-300">
-                  <li>• Bluetooth stereo head unit</li>
+                  <li>• Alpine detachable bluetooth stereo head unit</li>
                   <li>• Alpine digital amplifier</li>
-                  <li>• Polk Audio marine speakers</li>
+                  <li>• Polk Audio 6.5" marine speakers</li>
                 </ul>
               </div>
             </div>

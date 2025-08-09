@@ -440,12 +440,12 @@ const App: React.FC = () => {
               <div className="mt-8 text-center">
                 <button
                   onClick={() => scrollToSection('contact')}
-                  className="group relative px-8 py-4 bg-black/30 hover:bg-black/50 text-yellow-300 hover:text-yellow-200 font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 border-2 border-yellow-500/50 hover:border-yellow-400/70 shadow-lg hover:shadow-xl"
+                  className="group relative px-8 py-4 bg-green-500/20 hover:bg-green-500/30 backdrop-blur-md text-green-100 hover:text-white font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 border border-green-400/30 hover:border-green-300/50 shadow-lg hover:shadow-green-500/25"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     Delivery Options Available
                   </span>
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-400/10 to-green-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
               </div>
             </div>
@@ -472,8 +472,7 @@ const App: React.FC = () => {
             {/* Top Row - Bike Details and Delivery Options Side by Side */}
             <div className="grid lg:grid-cols-2 gap-8">
               <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-8">
-                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                  <span className="text-3xl">📍</span>
+                <h3 className="text-2xl font-bold text-white mb-6">
                   Bike Details
                 </h3>
                 <div className="space-y-4">
@@ -493,8 +492,7 @@ const App: React.FC = () => {
               </div>
 
               <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-8">
-                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                  <span className="text-3xl">🚚</span>
+                <h3 className="text-2xl font-bold text-white mb-6">
                   Delivery Options
                 </h3>
                 <div className="space-y-4">

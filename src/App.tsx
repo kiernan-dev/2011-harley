@@ -97,14 +97,16 @@ const App: React.FC = () => {
               {[
                 { id: 'gallery', label: 'Gallery' },
                 { id: 'features', label: 'Features' },
-                { id: 'value', label: 'Value' },
-                { id: 'important-note', label: 'Details' },
+                { id: 'important-note', label: 'Disclosure' },
                 { id: 'contact', label: 'Contact' }
               ].map(item => (
                 <button 
                   key={item.id}
                   onClick={() => scrollToSection(item.id)} 
-                  className="px-4 py-2 text-gray-300 hover:text-white font-medium transition-all duration-300 hover:bg-red-500/10 rounded-xl border border-transparent hover:border-red-500/30"
+                  className={item.id === 'important-note' 
+                    ? "px-4 py-2 bg-yellow-500/20 text-yellow-400 hover:text-yellow-300 font-bold transition-all duration-300 hover:bg-yellow-500/30 rounded-xl border-2 border-yellow-500/50 hover:border-yellow-400/70"
+                    : "px-4 py-2 text-gray-300 hover:text-white font-medium transition-all duration-300 hover:bg-red-500/10 rounded-xl border border-transparent hover:border-red-500/30"
+                  }
                 >
                   {item.label}
                 </button>
@@ -121,8 +123,7 @@ const App: React.FC = () => {
                 <option value="" disabled>Navigate</option>
                 <option value="gallery">Gallery</option>
                 <option value="features">Features</option>
-                <option value="value">Value</option>
-                <option value="important-note">Details</option>
+                <option value="important-note">Disclosure</option>
                 <option value="contact">Contact</option>
               </select>
             </div>
@@ -398,8 +399,9 @@ const App: React.FC = () => {
                 <div className="relative z-10">
                   <h3 className="text-2xl font-bold text-black mb-4 drop-shadow">Before You Ride</h3>
                   <p className="text-lg text-black leading-relaxed">
-                    The bike will need <span className="font-bold">new tires</span> before riding. 
-                    For safety, she should be <span className="font-bold">picked up with a trailer</span> <span className="font-bold bg-black/20 px-2 py-1 rounded">(not ridden home)</span>.
+                    The bike will need <span className="font-bold">a new front tire</span> before riding.</p>
+                  <p className="text-lg text-black leading-relaxed">
+                    For safety, it needs to be <span className="font-bold">picked up with a trailer</span> <span className="font-bold bg-black/20 px-2 py-1 rounded">(not ridden home)</span>.
                   </p>
                 </div>
               </div>
@@ -419,6 +421,18 @@ const App: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <p className="relative z-10 text-sm font-bold text-black drop-shadow">Trailer pickup recommended</p>
                 </div>
+              </div>
+
+              <div className="mt-8 text-center">
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className="group relative px-8 py-4 bg-black/30 hover:bg-black/50 text-yellow-300 hover:text-yellow-200 font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 border-2 border-yellow-500/50 hover:border-yellow-400/70 shadow-lg hover:shadow-xl"
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    Delivery Options Available
+                  </span>
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
               </div>
             </div>
             
@@ -457,10 +471,25 @@ const App: React.FC = () => {
                     <span className="text-gray-300 font-medium">Title:</span>
                     <span className="text-green-400 font-semibold">Clean Title in Hand</span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-3 border-b border-gray-700">
                     <span className="text-gray-300 font-medium mb-1 sm:mb-0">VIN:</span>
                     <span className="text-gray-200 font-mono text-sm">1HD1KH410BB631899</span>
                   </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-8">
+                <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                  <span className="text-3xl">🚚</span>
+                  Delivery
+                </h3>
+                <div className="space-y-4">
+                  <p className="text-gray-300 text-lg">
+                    Local delivery available within a <span className="text-yellow-400 font-semibold">25 mile radius</span> of the "Legends" in KC
+                  </p>
+                  <p className="text-gray-300">
+                    <span className="text-yellow-400 font-semibold">$125-$225 delivery fee</span> • Subject to availability
+                  </p>
                 </div>
               </div>
             </div>
@@ -485,11 +514,7 @@ const App: React.FC = () => {
                         Send Message
                       </span>
                       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </button>
-
-                    <p className="text-sm text-gray-400">
-                      I'll get back to you promptly
-                    </p>
+                    </button> 
                   </div>
                 </div>
               </div>

@@ -529,7 +529,7 @@ const App: React.FC = () => {
                       Interested?
                     </h3>
                     <p className="text-lg text-gray-300 mb-6">
-                      Custom builds like this don't come around often. I'm happy to answer any questions.
+                      No games, no BS. Just a solid custom Harley looking for a new home.
                     </p>
                   </div>
 
@@ -543,10 +543,6 @@ const App: React.FC = () => {
                       </span>
                       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </button>
-
-                    <p className="text-sm text-gray-400">
-                      I'll get back to you promptly
-                    </p>
                   </div>
                 </div>
               </div>

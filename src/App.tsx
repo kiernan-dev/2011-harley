@@ -454,9 +454,9 @@ const App: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Contact Details */}
-            <div className="space-y-8">
+          <div className="space-y-12">
+            {/* Top Row - Bike Details and Delivery Options Side by Side */}
+            <div className="grid lg:grid-cols-2 gap-8">
               <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-8">
                 <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                   <span className="text-3xl">📍</span>
@@ -481,44 +481,61 @@ const App: React.FC = () => {
               <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-8">
                 <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                   <span className="text-3xl">🚚</span>
-                  Delivery
+                  Delivery Options
                 </h3>
                 <div className="space-y-4">
-                  <p className="text-gray-300 text-lg">
-                    Local delivery available within a <span className="text-yellow-400 font-semibold">25 mile radius</span> of the "Legends" in KC
-                  </p>
-                  <p className="text-gray-300">
-                    <span className="text-yellow-400 font-semibold">$125-$225 delivery fee</span> • Subject to availability
-                  </p>
+                  <p className="text-gray-300 text-sm mb-4">Available within KC Legends area • Subject to availability</p>
+                  
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600/50">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-300 font-medium">Within 10 miles</span>
+                        <span className="text-yellow-400 font-bold text-lg">$125</span>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600/50">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-300 font-medium">10-25 mile radius</span>
+                        <span className="text-yellow-400 font-bold text-lg">$225</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* CTA Side */}
-            <div className="space-y-8">
-              <div className="bg-gradient-to-br from-red-950/50 to-red-900/30 backdrop-blur-sm rounded-3xl border-2 border-red-500/30 p-10 text-center relative overflow-hidden">
+            {/* Bottom Row - Interested Section Spanning Full Width */}
+            <div className="w-full">
+              <div className="bg-gradient-to-br from-red-950/50 to-red-900/30 backdrop-blur-sm rounded-3xl border-2 border-red-500/30 p-10 text-center relative overflow-hidden max-w-4xl mx-auto">
                 
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-3xl font-black text-white mb-4">
                       Interested?
                     </h3>
+                    <p className="text-lg text-gray-300 mb-6">
+                      Custom builds like this don't come around often. I'm happy to answer any questions.
+                    </p>
                   </div>
 
                   <div className="space-y-4">
                     <button
                       onClick={() => setShowContactModal(true)}
-                      className="group relative w-full py-6 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold text-xl rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-red-500/50"
+                      className="group relative w-full max-w-md mx-auto py-6 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold text-xl rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-red-500/50"
                     >
                       <span className="relative z-10 flex items-center justify-center gap-3">
                         Send Message
                       </span>
                       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </button> 
+                    </button>
+
+                    <p className="text-sm text-gray-400">
+                      I'll get back to you promptly
+                    </p>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>

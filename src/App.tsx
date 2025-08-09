@@ -360,6 +360,20 @@ const App: React.FC = () => {
               </div>
             </div>
 
+            {/* Security Card */}
+            <div className="group relative p-8 bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover:border-red-500/50 transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative z-10">
+                <h3 className="text-2xl font-bold text-white mb-4">Factory Security</h3>
+                <p className="text-red-400 font-semibold mb-3">Harley-Davidson Smart Alarm</p>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• Integrated factory alarm system</li>
+                  <li>• Remote key fob with proximity sensor</li>
+                  <li>• Motion detection & immobilizer</li>
+                </ul>
+              </div>
+            </div>
+
             {/* Care Card */}
             <div className="group relative p-8 bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover:border-red-500/50 transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -415,7 +429,7 @@ const App: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                 <div className="group relative bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-xl p-4 text-center border-2 border-yellow-400 hover:border-yellow-300 transition-all duration-300 hover:shadow-lg shadow-lg">
                   <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <p className="relative z-10 text-sm font-bold text-black drop-shadow">New tires needed</p>
+                  <p className="relative z-10 text-sm font-bold text-black drop-shadow">New front tire needed</p>
                 </div>
                 <div className="group relative bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-xl p-4 text-center border-2 border-yellow-400 hover:border-yellow-300 transition-all duration-300 hover:shadow-lg shadow-lg">
                   <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

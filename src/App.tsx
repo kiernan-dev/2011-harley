@@ -6,6 +6,9 @@ const App: React.FC = () => {
   const [showImageModal, setShowImageModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
+  
+  // Toggle this flag to show/hide the "pending offer" modal
+  const hasPendingOffer = true;
 
   const images = [
     { src: '/images/glide/IMG_4058.webp', alt: '2011 Harley-Davidson Road Glide Custom - Front Quarter View' },
@@ -707,6 +710,56 @@ const App: React.FC = () => {
         </svg>
         <div className="absolute -inset-2 bg-gradient-to-r from-red-500 to-red-700 rounded-full blur opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
       </button>
+
+      {/* Pending Offer Modal - Completely Takes Over Screen */}
+      {hasPendingOffer && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 z-[9999] overflow-hidden">
+          <div className="relative max-w-2xl w-full text-center">
+            {/* Pulsing Warning Icon */}
+            <div className="mb-8 flex justify-center">
+              <div className="w-24 h-24 bg-yellow-500/20 rounded-full flex items-center justify-center animate-pulse">
+                <span className="text-6xl">⏰</span>
+              </div>
+            </div>
+
+            {/* Main Message */}
+            <div className="space-y-6">
+              <h1 className="text-4xl lg:text-6xl font-black text-yellow-400 mb-4">
+                PENDING OFFER
+              </h1>
+              
+              <div className="bg-gray-900/80 backdrop-blur-md rounded-3xl border-2 border-yellow-500/30 p-8 space-y-4">
+                <h2 className="text-2xl font-bold text-white">
+                  This Harley Currently Has an Active Offer
+                </h2>
+                
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  Someone beat you to it, but don't give up! Deals can fall through.
+                </p>
+                
+                <div className="border-t border-gray-700 pt-4 mt-6">
+                  <p className="text-yellow-400 font-semibold text-xl">
+                    Check back often
+                  </p>
+                  <p className="text-gray-400 text-sm mt-2">
+                    If the deal falls through, this page will become active again
+                  </p>
+                </div>
+              </div>
+
+              {/* Decorative Elements */}
+              <div className="flex justify-center space-x-4 mt-8">
+                <div className="w-2 h-2 bg-yellow-500 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+              </div>
+            </div>
+
+            {/* Background blur effect */}
+            <div className="absolute -inset-8 bg-gradient-to-r from-yellow-500/10 via-yellow-600/5 to-yellow-500/10 blur-3xl rounded-full opacity-50"></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

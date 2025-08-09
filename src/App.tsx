@@ -6,6 +6,7 @@ const App: React.FC = () => {
   const [showImageModal, setShowImageModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const [showPendingModal, setShowPendingModal] = useState(true);
   
   // Toggle this flag to show/hide the "pending offer" modal
   const hasPendingOffer = true;
@@ -80,8 +81,21 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 font-sans antialiased">
+      {/* Pending Offer Banner - Shows when modal is closed */}
+      {hasPendingOffer && !showPendingModal && (
+        <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-yellow-400/80 to-orange-600/80 text-white py-3 px-4 text-center z-50 shadow-lg border-b-2 border-yellow-400">
+          <div className="flex items-center justify-center gap-3 text-sm font-bold">
+            <span className="text-lg">⏰</span>
+            <span>PENDING OFFER - This Harley currently has an active offer</span>
+            <span className="text-lg">⏰</span>
+          </div>
+        </div>
+      )}
+
       {/* Mobile-friendly Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 bg-gray-950/95 backdrop-blur-md border-b border-red-500/20 z-40 shadow-lg">
+      <nav className={`fixed left-0 right-0 bg-gray-950/95 backdrop-blur-md border-b border-red-500/20 z-40 shadow-lg ${
+        hasPendingOffer && !showPendingModal ? 'top-12' : 'top-0'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18">
             {/* Logo/Brand */}
@@ -138,7 +152,9 @@ const App: React.FC = () => {
       </nav>
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center bg-gradient-to-br from-gray-950 via-gray-900 to-red-950">
+      <section className={`relative min-h-screen flex items-center bg-gradient-to-br from-gray-950 via-gray-900 to-red-950 ${
+        hasPendingOffer && !showPendingModal ? 'pt-12' : ''
+      }`}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(239,68,68,0.1),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(220,38,38,0.08),transparent_50%)]"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center">
@@ -712,9 +728,18 @@ const App: React.FC = () => {
       </button>
 
       {/* Pending Offer Modal - Completely Takes Over Screen */}
-      {hasPendingOffer && (
+      {hasPendingOffer && showPendingModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 z-[9999] overflow-hidden">
           <div className="relative max-w-2xl w-full text-center">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowPendingModal(false)}
+              className="absolute -top-4 -right-4 z-10 bg-gray-800 hover:bg-gray-700 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-light transition-all duration-200 border-2 border-gray-600 hover:border-gray-500"
+              aria-label="Close pending offer modal"
+            >
+              &times;
+            </button>
+
             {/* Pulsing Warning Icon */}
             <div className="mb-8 flex justify-center">
               <div className="w-24 h-24 bg-yellow-500/20 rounded-full flex items-center justify-center animate-pulse">
@@ -730,19 +755,19 @@ const App: React.FC = () => {
               
               <div className="bg-gray-900/80 backdrop-blur-md rounded-3xl border-2 border-yellow-500/30 p-8 space-y-4">
                 <h2 className="text-2xl font-bold text-white">
-                  This Harley Currently Has an Active Offer
+                  Too Late... This Time
                 </h2>
                 
                 <p className="text-lg text-gray-300 leading-relaxed">
-                  Someone beat you to it, but don't give up! Deals can fall through.
+                  That moment when you find exactly what you've been looking for, and someone else already called dibs. This Harley has a pending offer.
                 </p>
                 
                 <div className="border-t border-gray-700 pt-4 mt-6">
                   <p className="text-yellow-400 font-semibold text-xl">
-                    Check back often
+                    Look around anyway
                   </p>
                   <p className="text-gray-400 text-sm mt-2">
-                    If the deal falls through, this page will become active again
+                    see what made this one special. Deals fall through more often than you'd think.
                   </p>
                 </div>
               </div>

@@ -86,7 +86,7 @@ const App: React.FC = () => {
         <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-yellow-400/80 to-orange-600/80 text-white py-2 px-4 text-center z-50 shadow-lg border-b-2 border-yellow-400">
           <div className="flex items-center justify-center gap-3 text-sm font-bold">
             <span className="text-lg">⏰</span>
-            <span>PENDING OFFER - This Harley currently has an active offer</span>
+            <span>PENDING OFFER - <br className="md:hidden" />This Harley currently has an active offer</span>
             <span className="text-lg">⏰</span>
           </div>
         </div>
@@ -94,7 +94,7 @@ const App: React.FC = () => {
 
       {/* Mobile-friendly Navigation Bar */}
       <nav className={`fixed left-0 right-0 bg-gray-950/95 backdrop-blur-md border-b border-red-500/20 z-40 shadow-lg ${
-        hasPendingOffer && !showPendingModal ? 'top-0 mt-5' : 'top-0'
+        hasPendingOffer && !showPendingModal ? 'top-14 md:top-11' : 'top-0'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18">
@@ -153,7 +153,7 @@ const App: React.FC = () => {
       
       {/* Hero Section */}
       <section className={`relative min-h-screen flex items-center bg-gradient-to-br from-gray-950 via-gray-900 to-red-950 ${
-        hasPendingOffer && !showPendingModal ? 'pt-32' : 'pt-20'
+        hasPendingOffer && !showPendingModal ? 'pt-40' : 'pt-20'
       }`}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(239,68,68,0.1),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(220,38,38,0.08),transparent_50%)]"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

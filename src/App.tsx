@@ -514,6 +514,13 @@ const App: React.FC = () => {
                         <span className="text-yellow-400 font-bold text-lg">$225</span>
                       </div>
                     </div>
+                    
+                    <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600/50">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-300 font-medium">Over 50 miles</span>
+                        <span className="text-blue-400 font-bold text-lg">Custom Quote</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -142,7 +142,7 @@ const App: React.FC = () => {
             <div className="space-y-8">
               <div className="space-y-4">
                 <div className="inline-flex items-center px-4 py-2 bg-red-950/50 rounded-full border border-red-500/30">
-                  <span className="text-red-400 font-semibold text-sm">CUSTOM BUILD • 14,500 MILES</span>
+                  <span className="text-red-400 font-semibold text-sm">CUSTOM BUILD</span>
                 </div>
                 <h1 className="text-5xl lg:text-7xl font-black text-white leading-tight">
                   2011 Harley
@@ -251,7 +251,7 @@ const App: React.FC = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
-              Here's What She Looks <span className="text-red-500">Like</span>
+              The <span className="text-red-500">Photo's</span>
             </h2>
           </div>
           

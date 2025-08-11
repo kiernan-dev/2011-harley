@@ -7,9 +7,13 @@ const App: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
   const [showPendingModal, setShowPendingModal] = useState(true);
+  const [showSoldModal, setShowSoldModal] = useState(true);
   
   // Toggle this flag to show/hide the "pending offer" modal
-  const hasPendingOffer = true;
+  const hasPendingOffer = false;
+  
+  // Toggle this flag to show/hide the "sold" modal
+  const hasSold = true;
 
   const images = [
     { src: '/images/glide/IMG_4058.webp', alt: '2011 Harley-Davidson Road Glide Custom - Front Quarter View' },
@@ -81,6 +85,17 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 font-sans antialiased">
+      {/* Sold Banner - Shows when sold modal is closed */}
+      {hasSold && !showSoldModal && (
+        <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-green-600/90 to-green-800/90 text-white py-2 px-4 text-center z-50 shadow-lg border-b-2 border-green-500">
+          <div className="flex items-center justify-center gap-3 text-sm font-bold">
+            <span className="text-lg">✓</span>
+            <span>SOLD - <br className="md:hidden" />This Harley has found its new home</span>
+            <span className="text-lg">✓</span>
+          </div>
+        </div>
+      )}
+      
       {/* Pending Offer Banner - Shows when modal is closed */}
       {hasPendingOffer && !showPendingModal && (
         <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-yellow-400/80 to-orange-600/80 text-white py-2 px-4 text-center z-50 shadow-lg border-b-2 border-yellow-400">
@@ -94,7 +109,7 @@ const App: React.FC = () => {
 
       {/* Mobile-friendly Navigation Bar */}
       <nav className={`fixed left-0 right-0 bg-gray-950/95 backdrop-blur-md border-b border-red-500/20 z-40 shadow-lg ${
-        hasPendingOffer && !showPendingModal ? 'top-14 md:top-11' : 'top-0'
+        (hasSold && !showSoldModal) || (hasPendingOffer && !showPendingModal) ? 'top-14 md:top-11' : 'top-0'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18">
@@ -114,8 +129,10 @@ const App: React.FC = () => {
               {[
                 { id: 'gallery', label: 'Gallery' },
                 { id: 'features', label: 'Features' },
-                { id: 'important-note', label: 'Disclosure' },
-                { id: 'contact', label: 'Contact' }
+                ...(hasSold ? [] : [
+                  { id: 'important-note', label: 'Disclosure' },
+                  { id: 'contact', label: 'Contact' }
+                ])
               ].map(item => (
                 <button 
                   key={item.id}
@@ -140,8 +157,8 @@ const App: React.FC = () => {
                 <option value="" disabled>Navigate</option>
                 <option value="gallery">Gallery</option>
                 <option value="features">Features</option>
-                <option value="important-note">Disclosure</option>
-                <option value="contact">Contact</option>
+                {!hasSold && <option value="important-note">Disclosure</option>}
+                {!hasSold && <option value="contact">Contact</option>}
               </select>
             </div>
           </div>
@@ -153,7 +170,7 @@ const App: React.FC = () => {
       
       {/* Hero Section */}
       <section className={`relative min-h-screen flex items-center bg-gradient-to-br from-gray-950 via-gray-900 to-red-950 ${
-        hasPendingOffer && !showPendingModal ? 'pt-40' : 'pt-20'
+        (hasSold && !showSoldModal) || (hasPendingOffer && !showPendingModal) ? 'pt-40' : 'pt-20'
       }`}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(239,68,68,0.1),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(220,38,38,0.08),transparent_50%)]"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -206,27 +223,39 @@ const App: React.FC = () => {
                 </p>
                 
                 <div className="relative">
-                  <div className="bg-gradient-to-r from-red-600 to-red-700 p-6 rounded-2xl shadow-2xl border border-red-500/20">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-4xl lg:text-5xl font-black text-white">$18,000</span>
-                      <span className="text-xl text-red-200">OBO</span>
+                  {hasSold ? (
+                    <div className="bg-gradient-to-r from-green-600 to-green-700 p-6 rounded-2xl shadow-2xl border border-green-500/20">
+                      <div className="flex items-center justify-center gap-3">
+                        <span className="text-4xl lg:text-5xl font-black text-white">SOLD</span>
+                        <span className="text-3xl text-green-200">✓</span>
+                      </div>
+                      <p className="text-green-100 text-sm mt-1 text-center">Found its perfect home</p>
                     </div>
-                    <p className="text-red-100 text-sm mt-1">Comparable builds typically $25k+</p>
-                  </div>
-                  <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-red-700 rounded-2xl blur opacity-20"></div>
+                  ) : (
+                    <div className="bg-gradient-to-r from-red-600 to-red-700 p-6 rounded-2xl shadow-2xl border border-red-500/20">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-4xl lg:text-5xl font-black text-white">$18,000</span>
+                        <span className="text-xl text-red-200">OBO</span>
+                      </div>
+                      <p className="text-red-100 text-sm mt-1">Comparable builds typically $25k+</p>
+                    </div>
+                  )}
+                  <div className={`absolute -inset-1 rounded-2xl blur opacity-20 ${hasSold ? 'bg-gradient-to-r from-green-600 to-green-700' : 'bg-gradient-to-r from-red-600 to-red-700'}`}></div>
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={() => setShowContactModal(true)}
-                  className="group relative px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-red-500/50"
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    Get in Touch
-                  </span>
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-red-500 to-red-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
+                {!hasSold && (
+                  <button
+                    onClick={() => setShowContactModal(true)}
+                    className="group relative px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-red-500/50"
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      Get in Touch
+                    </span>
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-red-500 to-red-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </button>
+                )}
                 <button
                   onClick={() => scrollToSection('gallery')}
                   className="px-6 py-4 border-2 border-gray-700 hover:border-red-500 text-gray-300 hover:text-white font-semibold rounded-xl transition-all duration-300"
@@ -411,7 +440,8 @@ const App: React.FC = () => {
       </section>
 
       {/* Important Note Section */}
-      <section id="important-note" className="py-24 bg-gray-950 relative">
+      {!hasSold && (
+        <section id="important-note" className="py-24 bg-gray-950 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-yellow-950/20 to-transparent"></div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="group relative bg-gradient-to-br from-yellow-950/50 to-yellow-900/30 backdrop-blur-sm rounded-3xl border-2 border-yellow-500/30 p-12 text-center overflow-hidden shadow-2xl hover:shadow-yellow-500/25 transition-all duration-300 hover:scale-105">
@@ -473,9 +503,11 @@ const App: React.FC = () => {
           </div>
         </div>
       </section>
+      )}
 
       {/* Contact & Legal Info Section */}
-      <section id="contact" className="py-24 bg-gray-900 relative">
+      {!hasSold && (
+        <section id="contact" className="py-24 bg-gray-900 relative">
         <div className="absolute inset-0 bg-gradient-to-t from-gray-950 to-transparent"></div>
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -550,30 +582,36 @@ const App: React.FC = () => {
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-3xl font-black text-white mb-4">
-                      Interested?
+                      {hasSold ? 'Thank You' : 'Interested?'}
                     </h3>
                     <p className="text-lg text-gray-300 mb-6">
-                      No games, no BS. Just a solid custom Harley looking for a new home.
+                      {hasSold 
+                        ? 'This beautiful Harley has found its perfect home. Thank you to everyone who showed interest.'
+                        : 'No games, no BS. Just a solid custom Harley looking for a new home.'
+                      }
                     </p>
                   </div>
 
-                  <div className="space-y-4">
-                    <button
-                      onClick={() => setShowContactModal(true)}
-                      className="group relative w-full max-w-md mx-auto py-6 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold text-xl rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-red-500/50"
-                    >
-                      <span className="relative z-10 flex items-center justify-center gap-3">
-                        Send Message
-                      </span>
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </button>
-                  </div>
+                  {!hasSold && (
+                    <div className="space-y-4">
+                      <button
+                        onClick={() => setShowContactModal(true)}
+                        className="group relative w-full max-w-md mx-auto py-6 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold text-xl rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-red-500/50"
+                      >
+                        <span className="relative z-10 flex items-center justify-center gap-3">
+                          Send Message
+                        </span>
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+      )}
 
       {/* Image Gallery Modal */}
       {showImageModal && (
@@ -726,6 +764,65 @@ const App: React.FC = () => {
         </svg>
         <div className="absolute -inset-2 bg-gradient-to-r from-red-500 to-red-700 rounded-full blur opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
       </button>
+
+      {/* Sold Modal - Completely Takes Over Screen */}
+      {hasSold && showSoldModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 z-[9999] overflow-hidden">
+          <div className="relative max-w-2xl w-full text-center">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowSoldModal(false)}
+              className="absolute -top-4 -right-4 z-10 bg-gray-800 hover:bg-gray-700 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-light transition-all duration-200 border-2 border-gray-600 hover:border-gray-500"
+              aria-label="Close sold modal"
+            >
+              &times;
+            </button>
+
+            {/* Checkmark Icon */}
+            <div className="mb-8 flex justify-center">
+              <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center">
+                <span className="text-6xl text-green-400">✓</span>
+              </div>
+            </div>
+
+            {/* Main Message */}
+            <div className="space-y-6">
+              <h1 className="text-4xl lg:text-6xl font-black text-green-400 mb-4">
+                SOLD
+              </h1>
+              
+              <div className="bg-gray-900/80 backdrop-blur-md rounded-3xl border-2 border-green-500/30 p-8 space-y-4">
+                <h2 className="text-2xl font-bold text-white">
+                  Found Its New Home
+                </h2>
+                
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  This beautiful Road Glide has found the perfect owner who will give it the love and adventure it deserves. Sometimes the stars align just right.
+                </p>
+                
+                <div className="border-t border-gray-700 pt-4 mt-6">
+                  <p className="text-green-400 font-semibold text-xl">
+                    Thank you for looking
+                  </p>
+                  <p className="text-gray-400 text-sm mt-2">
+                    Your interest means the world. Keep an eye out—more great rides come along when you least expect them.
+                  </p>
+                </div>
+              </div>
+
+              {/* Decorative Elements */}
+              <div className="flex justify-center space-x-4 mt-8">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+              </div>
+            </div>
+
+            {/* Background blur effect */}
+            <div className="absolute -inset-8 bg-gradient-to-r from-green-500/10 via-green-600/5 to-green-500/10 blur-3xl rounded-full opacity-50"></div>
+          </div>
+        </div>
+      )}
 
       {/* Pending Offer Modal - Completely Takes Over Screen */}
       {hasPendingOffer && showPendingModal && (

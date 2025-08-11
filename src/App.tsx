@@ -9,11 +9,9 @@ const App: React.FC = () => {
   const [showPendingModal, setShowPendingModal] = useState(true);
   const [showSoldModal, setShowSoldModal] = useState(true);
   
-  // Toggle this flag to show/hide the "pending offer" modal
-  const hasPendingOffer = false;
-  
-  // Toggle this flag to show/hide the "sold" modal
-  const hasSold = true;
+  // URL-controlled flags for dynamic content
+  const [hasPendingOffer, setHasPendingOffer] = useState(false);
+  const [hasSold, setHasSold] = useState(true);
 
   const images = [
     { src: '/images/glide/IMG_4058.webp', alt: '2011 Harley-Davidson Road Glide Custom - Front Quarter View' },
@@ -65,6 +63,19 @@ const App: React.FC = () => {
   const scrollToGallery = () => {
     scrollToSection('gallery');
   };
+
+  useEffect(() => {
+    // Parse URL parameters on component mount
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    if (urlParams.has('hasPendingOffer')) {
+      setHasPendingOffer(urlParams.get('hasPendingOffer') === 'true');
+    }
+    
+    if (urlParams.has('hasSold')) {
+      setHasSold(urlParams.get('hasSold') === 'true');
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {

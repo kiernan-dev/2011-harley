@@ -9,17 +9,32 @@
             font-family: Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
             line-height: 1.6;
             background-color: #f8f9fa;
             color: #333;
         }
         
+        @media (max-width: 768px) {
+            body {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+        
         .container {
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                border-radius: 6px;
+                margin: 0;
+            }
         }
         
         h1 {
@@ -27,14 +42,33 @@
             text-align: center;
             border-bottom: 3px solid #3498db;
             padding-bottom: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+                padding-bottom: 8px;
+            }
         }
         
         h2 {
             color: #34495e;
             border-left: 4px solid #3498db;
             padding-left: 15px;
-            margin-top: 30px;
+            margin-top: 25px;
+            font-size: 1.3em;
+        }
+        
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.2em;
+                margin-top: 20px;
+                padding-left: 10px;
+                border-left-width: 3px;
+            }
         }
         
         h3 {
@@ -53,6 +87,15 @@
             padding: 10px;
             border-left: 3px solid #3498db;
             border-radius: 4px;
+            word-wrap: break-word;
+        }
+        
+        @media (max-width: 768px) {
+            li {
+                padding: 8px;
+                margin: 6px 0;
+                font-size: 0.9em;
+            }
         }
         
         .value-item {
@@ -80,6 +123,14 @@
             font-weight: bold;
             color: #155724;
             margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .price-highlight {
+                padding: 15px;
+                font-size: 1.1em;
+                margin: 15px 0;
+            }
         }
         
         .intro {

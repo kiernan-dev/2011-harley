@@ -805,7 +805,7 @@ const App: React.FC = () => {
                     Thank you for looking
                   </p>
                   <p className="text-gray-400 text-sm mt-2">
-                    Your interest means the world. Keep an eye out—more great rides come along when you least expect them.
+                    Keep an eye out—more great rides come along when you least expect them.
                   </p>
                 </div>
               </div>

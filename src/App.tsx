@@ -68,12 +68,17 @@ const App: React.FC = () => {
     // Parse URL parameters on component mount
     const urlParams = new URLSearchParams(window.location.search);
     
-    if (urlParams.has('hasPendingOffer')) {
-      setHasPendingOffer(urlParams.get('hasPendingOffer') === 'true');
-    }
+    const hasPendingOfferParam = urlParams.has('hasPendingOffer') && urlParams.get('hasPendingOffer') === 'true';
+    const hasSoldParam = urlParams.has('hasSold') ? urlParams.get('hasSold') === 'true' : true; // defaults to true
     
-    if (urlParams.has('hasSold')) {
-      setHasSold(urlParams.get('hasSold') === 'true');
+    if (hasPendingOfferParam) {
+      // If hasPendingOffer is true, force hasSold to false
+      setHasPendingOffer(true);
+      setHasSold(false);
+    } else {
+      // If hasPendingOffer is false or not present, use hasSold value (defaults to true)
+      setHasPendingOffer(false);
+      setHasSold(hasSoldParam);
     }
   }, []);
 
